@@ -47,6 +47,25 @@ for (var i = 0; i < latlng_length; i++) {
 	var lng1 = latlng[i].lng;
 	var addr1 = latlng[i].address.substring(0,20);
 	var distances = [];
+
+	//if iterator == last element
+	if(i + 1 == latlng_length)
+	{
+		//  greater than 0 because we're checking i2 - 2
+		for(var i2=latlng_length; i2>1; --i2){
+			// iterator2 - 2 because array is 0 based and we don't want to
+			// check it against itself, itself being the last element in the array
+			var lat2 = latlng[i2 - 2].lat;
+			var lng2 = latlng[i2 - 2].lng;
+			var addr2 = latlng[i2 - 2].address.substring(0,20);
+			var calc = getDistanceFromLatLonInKm(lat1, lng1, lat2, lng2)
+			var myObj = {
+				name: addr2,
+				distance: calc
+			};
+			distances.push(myObj)
+		}
+	}
 	for (var i2 = i+1; i2 < latlng_length; i2++) {
 		var lat2 = latlng[i2].lat;
 		var lng2 = latlng[i2].lng;
